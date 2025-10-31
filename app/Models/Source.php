@@ -2,33 +2,40 @@
 
 namespace App\Models;
 
-use App\Enums\EventFieldsEnum;
-use App\Enums\LegFieldsEnum;
-use App\Enums\ShipmentSourceFieldsEnum;
-use App\Enums\SourceEventFieldsEnum;
-use App\Enums\SourceFieldsEnum;
-use App\Enums\ShipmentFieldsEnum;
-use App\Enums\WebhookDeliveryFieldsEnum;
-use Illuminate\Database\Eloquent\Model;
+use App\Enums\Database\TableNameEnum;
+use App\Enums\Event\EventFieldsEnum;
+use App\Enums\Leg\LegFieldsEnum;
+use App\Enums\ShipmentSource\ShipmentSourceFieldsEnum;
+use App\Enums\Source\SourceFieldsEnum;
+use App\Enums\SourceEvent\SourceEventFieldsEnum;
+use App\Enums\ValueTypEnum;
+use App\Enums\WebhookDelivery\WebhookDeliveryFieldsEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Source extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'sources';
+    protected $table = TableNameEnum::SOURCES;
     protected $guarded = [];
 
     protected $casts = [
-        SourceFieldsEnum::CONFIG  => 'array',
-        SourceFieldsEnum::ENABLED => 'boolean',
+        SourceFieldsEnum::CONFIG  => ValueTypEnum::ARRAY_VALUE,
+        SourceFieldsEnum::ENABLED => ValueTypEnum::BOOLEAN,
     ];
 
-    public function shipments(): HasMany
+    public function shipments(): BelongsToMany
     {
-        return $this->hasMany(Shipment::class, ShipmentFieldsEnum::STATUS_SOURCE_ID);
+        return $this->belongsToMany(
+            Shipment::class,
+            TableNameEnum::SHIPMENT_SOURCES,
+            ShipmentSourceFieldsEnum::SHIPMENT_ID,
+            ShipmentSourceFieldsEnum::SOURCE_ID
+        );
     }
 
     public function legs(): HasMany
