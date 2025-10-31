@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Enums\Event;
+
+use App\Base\BaseEnum;
+
+final class EventTypeEnum extends BaseEnum
+{
+    // Order / Procurement
+    const ORDER_CREATED               = 'ORDER_CREATED';
+    const ORDER_APPROVED              = 'ORDER_APPROVED';
+    const ORDER_REJECTED              = 'ORDER_REJECTED';
+    const PROCUREMENT_IN_PROGRESS     = 'PROCUREMENT_IN_PROGRESS';
+    const PROCURED                    = 'PROCURED';
+    const PROCUREMENT_FAILED          = 'PROCUREMENT_FAILED';
+
+    // Linehaul
+    const READY_FOR_TRANSPORT         = 'READY_FOR_TRANSPORT';
+    const ARRIVED_ORIGIN_WAREHOUSE    = 'ARRIVED_ORIGIN_WAREHOUSE';
+    const HANDOVER_TO_SHIP            = 'HANDOVER_TO_SHIP';
+    const HANDOVER_TO_AIRLINE         = 'HANDOVER_TO_AIRLINE';
+    const DEPARTED_INTERNATIONAL      = 'DEPARTED_INTERNATIONAL';
+    const CUSTOMS_IMPORT_IN_PROGRESS  = 'CUSTOMS_IMPORT_IN_PROGRESS';
+    const CUSTOMS_IMPORT_CLEARED      = 'CUSTOMS_IMPORT_CLEARED';
+    const ARRIVED_DEST_AIRPORT        = 'ARRIVED_DEST_AIRPORT';
+    const ARRIVED_DEST_PORT           = 'ARRIVED_DEST_PORT';
+    const ARRIVED_DEST_WAREHOUSE      = 'ARRIVED_DEST_WAREHOUSE';
+    const HANDED_TO_LAST_MILE         = 'HANDED_TO_LAST_MILE';
+
+    // Last mile
+    const DELIVERY_REQUEST_CREATED    = 'DELIVERY_REQUEST_CREATED';
+    const DELIVERY_PROCESSING         = 'DELIVERY_PROCESSING';
+    const DELIVERY_READY              = 'DELIVERY_READY';
+    const DELIVERY_SHIPPED            = 'DELIVERY_SHIPPED';
+    const OUT_FOR_DELIVERY_ASSIGNED   = 'OUT_FOR_DELIVERY_ASSIGNED';
+    const OUT_FOR_DELIVERY_STARTED    = 'OUT_FOR_DELIVERY_STARTED';
+    const DELIVERY_FAILED             = 'DELIVERY_FAILED';
+    const DELIVERY_RETURNED           = 'DELIVERY_RETURNED';
+    const DELIVERED                   = 'DELIVERED';
+
+    // Exceptions / Meta
+    const CANCELLED                   = 'CANCELLED';
+    const REFUND_INITIATED            = 'REFUND_INITIATED';
+    const REFUND_PROCESSING           = 'REFUND_PROCESSING';
+    const REFUNDED                    = 'REFUNDED';
+    const STATUS_DISCREPANCY_OPENED   = 'STATUS_DISCREPANCY_OPENED';
+    const STATUS_DISCREPANCY_CLEARED  = 'STATUS_DISCREPANCY_CLEARED';
+    const PROCUREMENT_APPROVED        = 'PROCUREMENT_APPROVED';
+    const PROCUREMENT_PURCHASED       = 'PROCUREMENT_PURCHASED';
+    const HANDOVER_TO_SHIPPING        = 'HANDOVER_TO_SHIPPING';
+}

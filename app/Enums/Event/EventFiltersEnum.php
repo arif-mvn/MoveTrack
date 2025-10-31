@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Event;
 
 use App\Base\BaseEnum;
 
-class EventFieldsEnum extends BaseEnum
+class EventFiltersEnum extends BaseEnum
 {
     const ID             = 'id';
     const SHIPMENT_ID    = 'shipment_id'; // FK

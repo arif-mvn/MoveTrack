@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\EventFieldsEnum;
-use Illuminate\Database\Eloquent\Model;
+use App\Enums\Database\TableNameEnum;
+use App\Enums\Event\EventFieldsEnum;
+use App\Enums\SourceEvent\SourceEventFieldsEnum;
+use App\Enums\ValueTypEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -12,15 +15,16 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $table = 'events';
+    protected $table = TableNameEnum::EVENTS;
+
     protected $guarded = [];
 
     protected $casts = [
-        EventFieldsEnum::OCCURRED_AT   => 'datetime',
-        EventFieldsEnum::LOCATION      => 'array',
-        EventFieldsEnum::ACTOR         => 'array',
-        EventFieldsEnum::EVIDENCE      => 'array',
-        EventFieldsEnum::AUTHORITATIVE => 'boolean',
+        EventFieldsEnum::OCCURRED_AT   => ValueTypEnum::DATETIME,
+        EventFieldsEnum::LOCATION      => ValueTypEnum::ARRAY_VALUE,
+        EventFieldsEnum::ACTOR         => ValueTypEnum::ARRAY_VALUE,
+        EventFieldsEnum::EVIDENCE      => ValueTypEnum::ARRAY_VALUE,
+        EventFieldsEnum::AUTHORITATIVE => ValueTypEnum::BOOLEAN,
     ];
 
     public function shipment(): BelongsTo
@@ -40,6 +44,6 @@ class Event extends Model
 
     public function sourceEvents(): HasMany
     {
-        return $this->hasMany(SourceEvent::class, \App\Enums\SourceEventFieldsEnum::EVENT_ID);
+        return $this->hasMany(SourceEvent::class, SourceEventFieldsEnum::EVENT_ID);
     }
 }
