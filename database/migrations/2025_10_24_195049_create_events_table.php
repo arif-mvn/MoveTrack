@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\EventVisibilityTypeEnum;
+use App\Enums\Event\EventVisibilityTypeEnum;
 use App\Models\Event;
 use App\Models\Leg;
 use App\Models\Shipment;

@@ -1,7 +1,6 @@
 <?php
 
-use App\Enums\SourceCodeEnum;
-use App\Enums\SourceTypeEnum;
+use App\Enums\Source\SourceCodeEnum;
 use App\Models\Identifier;
 use App\Models\Shipment;
 use Illuminate\Database\Migrations\Migration;
