@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Leg;
 
 use App\Base\BaseEnum;
 
-class LegFieldsEnum extends BaseEnum
+class LegFiltersEnum extends BaseEnum
 {
     const ID           = 'id';
     const SHIPMENT_ID  = 'shipment_id'; // FK

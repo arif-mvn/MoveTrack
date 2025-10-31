@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use App\Enums\EventFieldsEnum;
-use App\Enums\LegFieldsEnum;
+use App\Enums\Database\TableNameEnum;
+use App\Enums\Event\EventFieldsEnum;
+use App\Enums\Leg\LegFieldsEnum;
+use App\Enums\ValueTypEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,14 +14,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Leg extends Model
 {
     use HasFactory;
-
-    protected $table = 'legs';
+    protected $table = TableNameEnum::LEGS;
     protected $guarded = [];
 
     protected $casts = [
-        LegFieldsEnum::ROUTE    => 'array',
-        LegFieldsEnum::START_AT => 'datetime',
-        LegFieldsEnum::END_AT   => 'datetime',
+        LegFieldsEnum::ROUTE    => ValueTypEnum::ARRAY_VALUE,
+        LegFieldsEnum::START_AT => ValueTypEnum::DATETIME,
+        LegFieldsEnum::END_AT   => ValueTypEnum::DATETIME,
     ];
 
     public function shipment(): BelongsTo
