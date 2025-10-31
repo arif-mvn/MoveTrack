@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\WebhookDelivery;
 
 use App\Base\BaseEnum;
 
-class WebhookDeliveryFieldsEnum extends BaseEnum
+class WebhookDeliveryFiltersEnum extends BaseEnum
 {
     const ID           = 'id';
     const SOURCE_ID    = 'source_id'; // FK
