@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Source;
 
 use App\Base\BaseEnum;
 
-class SourceFieldsEnum extends BaseEnum
+class SourceFiltersEnum extends BaseEnum
 {
     const ID                    = 'id';
+    const IDS                   = 'ids'; // added to support whereIn queries
     const CODE                  = 'code';
     const NAME                  = 'name';
     const TYPE                  = 'type';
