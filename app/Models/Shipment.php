@@ -2,38 +2,50 @@
 
 namespace App\Models;
 
-use App\Enums\EventFieldsEnum;
-use App\Enums\IdentifierFieldsEnum;
-use App\Enums\LegFieldsEnum;
-use App\Enums\ShipmentFieldsEnum;
-use App\Enums\ShipmentSourceFieldsEnum;
-use App\Enums\SourceEventFieldsEnum;
-use Illuminate\Database\Eloquent\Model;
+use App\Enums\Database\TableNameEnum;
+use App\Enums\Event\EventFieldsEnum;
+use App\Enums\Event\EventTypeEnum;
+use App\Enums\Identifier\IdentifierFieldsEnum;
+use App\Enums\Leg\LegFieldsEnum;
+use App\Enums\Shipment\ShipmentFieldsEnum;
+use App\Enums\ShipmentSource\ShipmentSourceFieldsEnum;
+use App\Enums\SourceEvent\SourceEventFieldsEnum;
+use App\Enums\ValueTypEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Shipment extends Model
 {
     use HasFactory;
 
-    protected $table = 'shipments';
+    protected $table = TableNameEnum::SHIPMENTS;
     protected $guarded = [];
 
     protected $casts = [
-        ShipmentFieldsEnum::DELIVERED_AT         => 'datetime',
-        ShipmentFieldsEnum::DELIVERED_AT_COURIER => 'datetime',
-        ShipmentFieldsEnum::STATUS_DISCREPANCY   => 'boolean',
-        ShipmentFieldsEnum::LAST_EVENT_AT        => 'datetime',
-        ShipmentFieldsEnum::LAST_SYNCED_AT       => 'datetime',
-        ShipmentFieldsEnum::SUMMARY_TIMESTAMPS   => 'array',
+        ShipmentFieldsEnum::DELIVERED_AT         => ValueTypEnum::DATETIME,
+        ShipmentFieldsEnum::DELIVERED_AT_COURIER => ValueTypEnum::DATETIME,
+        ShipmentFieldsEnum::STATUS_DISCREPANCY   => ValueTypEnum::BOOLEAN,
+        ShipmentFieldsEnum::LAST_EVENT_AT        => ValueTypEnum::DATETIME,
+        ShipmentFieldsEnum::LAST_SYNCED_AT       => ValueTypEnum::DATETIME,
+        ShipmentFieldsEnum::SUMMARY_TIMESTAMPS   => ValueTypEnum::ARRAY_VALUE,
     ];
 
-    public function source(): BelongsTo
+    public function statusSource(): BelongsTo
     {
         return $this->belongsTo(Source::class, ShipmentFieldsEnum::STATUS_SOURCE_ID);
     }
-
+    public function sources(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Source::class,
+            TableNameEnum::SHIPMENT_SOURCES,
+            ShipmentSourceFieldsEnum::SHIPMENT_ID,
+            ShipmentSourceFieldsEnum::SOURCE_ID
+        );
+    }
     public function identifiers(): HasMany
     {
         return $this->hasMany(Identifier::class, IdentifierFieldsEnum::SHIPMENT_ID);
@@ -62,7 +74,7 @@ class Shipment extends Model
     /* Scopes */
     public function scopeDelivered($q)
     {
-        return $q->where(ShipmentFieldsEnum::CURRENT_STATUS, 'DELIVERED');
+        return $q->where(ShipmentFieldsEnum::CURRENT_STATUS, EventTypeEnum::DELIVERED);
     }
 
     public function scopeNeedsRefresh($q, int $staleMinutes = 90)

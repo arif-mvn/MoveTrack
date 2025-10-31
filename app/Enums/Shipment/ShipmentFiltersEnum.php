@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Shipment;
 
 use App\Base\BaseEnum;
 
-class ShipmentFieldsEnum extends BaseEnum
+class ShipmentFiltersEnum extends BaseEnum
 {
     const ID                   = 'id';
     const MODE                 = 'mode';
