@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\IdentifierFieldsEnum;
+use App\Enums\Identifier\IdentifierFieldsEnum;
+use App\Enums\Database\TableNameEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +12,7 @@ class Identifier extends Model
 {
     use HasFactory;
 
-    protected $table = 'identifiers';
+    protected $table = TableNameEnum::IDENTIFIERS;
     protected $guarded = [];
 
     public function shipment(): BelongsTo

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Identifier;
 
 use App\Base\BaseEnum;
 
-class IdentifierFieldsEnum extends BaseEnum
+class IdentifierFiltersEnum extends BaseEnum
 {
     const ID           = 'id';
     const SHIPMENT_ID  = 'shipment_id'; // FK
