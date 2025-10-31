@@ -2,22 +2,24 @@
 
 namespace App\Models;
 
-use App\Enums\SourceEventFieldsEnum;
-use Illuminate\Database\Eloquent\Model;
+use App\Enums\Database\TableNameEnum;
+use App\Enums\SourceEvent\SourceEventFieldsEnum;
+use App\Enums\ValueTypEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SourceEvent extends Model
 {
     use HasFactory;
 
-    protected $table = 'source_events';
+    protected $table = TableNameEnum::SOURCE_EVENTS;
     protected $guarded = [];
 
     protected $casts = [
-        SourceEventFieldsEnum::PAYLOAD     => 'array',
-        SourceEventFieldsEnum::OCCURRED_AT => 'datetime',
-        SourceEventFieldsEnum::RECEIVED_AT => 'datetime',
+        SourceEventFieldsEnum::PAYLOAD     => ValueTypEnum::ARRAY_VALUE,
+        SourceEventFieldsEnum::OCCURRED_AT => ValueTypEnum::DATETIME,
+        SourceEventFieldsEnum::RECEIVED_AT => ValueTypEnum::DATETIME,
     ];
 
     public function shipment(): BelongsTo
