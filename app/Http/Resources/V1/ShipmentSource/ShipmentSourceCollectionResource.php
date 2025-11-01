@@ -2,7 +2,7 @@
 namespace App\Http\Resources\V1\ShipmentSource;
 
 use App\Enums\ResourceObjectEnum;
-use MoveOn\Core\Http\Resources\BaseCollectionResource;
+use App\Http\Resources\BaseCollectionResource;
 
 class ShipmentSourceCollectionResource extends BaseCollectionResource
 {

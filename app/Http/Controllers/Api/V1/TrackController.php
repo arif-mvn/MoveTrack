@@ -29,14 +29,14 @@ class TrackController extends Controller
     public function show($value, TrackIndexRequest $request)
     {
         $q = $request->validated();
-dd($q);
+
         // 1) resolve identifier → shipment
         $filters = [ IdentifierFiltersEnum::VALUE => $value ];
         if (!empty($q['carrier_code'])) $filters[IdentifierFiltersEnum::CARRIER_CODE] = $q['carrier_code'];
         if (!empty($q['scope']))        $filters[IdentifierFiltersEnum::SCOPE]        = $q['scope'];
 
         $idModel = $this->identifiers->findById(
-            optional($this->identifiers->findAll($filters = $filters))->first()?->id ?? 0
+            optional($this->identifiers->getPaginatedIdentifiers($filters))->first()?->id ?? 0
         );
         if (!$idModel) {
             // fallback: loose search by value only (e.g., PB code with default moveon)
@@ -74,11 +74,12 @@ dd($q);
             return response()->noContent(304);
         }
 
-        return (new TimelineResource(['shipment'=>$shipment, 'segments'=>$segments]))
-            ->additional(['meta' => [
-                'etag'           => $etag,
-                'stale'          => (bool)$stale,
-                'last_synced_at' => optional($shipment->last_synced_at)->toDateTimeString(),
-            ]]);
+        return response()->json([
+            'shipment'=>$shipment,
+            'segments'=>$segments,
+            'etag'           => $etag,
+            'stale'          => (bool)$stale,
+            'last_synced_at' => optional($shipment->last_synced_at)->toDateTimeString(),
+        ]);
     }
 }

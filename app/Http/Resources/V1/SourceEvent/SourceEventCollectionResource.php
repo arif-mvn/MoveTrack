@@ -3,8 +3,8 @@
 namespace App\Http\Resources\V1\SourceEvent;
 
 use App\Enums\ResourceObjectEnum;
+use App\Http\Resources\BaseCollectionResource;
 use Illuminate\Http\Request;
-use MoveOn\Core\Http\Resources\BaseCollectionResource;
 
 class SourceEventCollectionResource extends BaseCollectionResource
 {

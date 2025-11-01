@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Adapters\MoveOnAdapter;
 use App\Enums\Event\EventTypeEnum;
 use App\Enums\Leg\LegTypeEnum;
 use App\Enums\Shipment\ShipmentFieldsEnum;
@@ -83,15 +84,36 @@ class ShipmentService
         return $this->repository->find(filters: [ShipmentFiltersEnum::ID => $id]);
     }
 
-    public function getById(int $id): Shipment
+    public function getById(int $id, array $expand = []): Shipment
     {
-        $shipment = $this->repository->find(filters: [ShipmentFiltersEnum::ID => $id]);
+        $shipment = $this->repository->find(
+            filters: [ShipmentFiltersEnum::ID => $id],
+            expand: $expand
+        );
 
         if (!$shipment) {
             throw new ModelNotFoundException('Shipment not found for id: ' . $id);
         }
 
         return $shipment;
+    }
+    public function getOrPullByIdentifier(string $identifier, array $expand = []): Shipment
+    {
+        $shipment = $this->repository->find(
+            filters: [ShipmentFiltersEnum::IDENTIFIER => $identifier],
+            expand: $expand
+        );
+
+        if (!$shipment) {
+            $moveOnAdapter = app(MoveOnAdapter::class);
+            $rawDataByMoveOn = $moveOnAdapter->find($identifier);
+            if (empty($rawDataByMoveOn)) {
+                throw new ModelNotFoundException('Shipment not found in MoveOn system for identifier: ' . $identifier);
+            }
+            //:toDo normalize and create shipment
+        }
+
+        return $shipment->loadMissing($expand);
     }
 
     public function applyLegTransitions(Shipment $shipment, string $eventType, ?int $explicitSourceId, string $occurredAt): array

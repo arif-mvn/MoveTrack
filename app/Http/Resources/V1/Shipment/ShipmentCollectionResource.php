@@ -3,8 +3,8 @@
 namespace App\Http\Resources\V1\Shipment;
 
 use App\Enums\ResourceObjectEnum;
+use App\Http\Resources\BaseCollectionResource;
 use Illuminate\Http\Request;
-use MoveOn\Core\Http\Resources\BaseCollectionResource;
 
 class ShipmentCollectionResource extends BaseCollectionResource
 {

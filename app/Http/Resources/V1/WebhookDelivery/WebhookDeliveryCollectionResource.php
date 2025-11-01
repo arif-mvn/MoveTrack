@@ -2,7 +2,7 @@
 namespace App\Http\Resources\V1\WebhookDelivery;
 
 use App\Enums\ResourceObjectEnum;
-use MoveOn\Core\Http\Resources\BaseCollectionResource;
+use App\Http\Resources\BaseCollectionResource;
 
 class WebhookDeliveryCollectionResource extends BaseCollectionResource
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace MoveOn\Core\Http\Resources;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\PaginatedResourceResponse;
 use Illuminate\Support\Arr;
