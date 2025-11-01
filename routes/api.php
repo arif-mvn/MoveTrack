@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'shipment/v1/shipments'], function () {
     Route::get('/', [ShipmentCustomerController::class,'index']);
-    Route::get('/{id}', [ShipmentCustomerController::class,'show']);
+    Route::get('/{identifier}', [ShipmentCustomerController::class,'show']);
     Route::get('/track/{identifier}', [ShipmentCustomerController::class,'show']);
 });
 

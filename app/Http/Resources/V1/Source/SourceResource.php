@@ -34,29 +34,29 @@ class SourceResource extends JsonResource
             SourceFieldsEnum::DELETED_AT             => optional($this->{SourceFieldsEnum::DELETED_AT}),
             // Expansions
             SourceExpandsEnum::SHIPMENTS             => $this->whenLoaded(SourceExpandsEnum::SHIPMENTS, fn() => [
-                'object' => ResourceObjectEnum::SHIPMENT_LIST,
-                'data'   => ShipmentResource::collection($this->{SourceExpandsEnum::SHIPMENTS})
-            ]),
+                                                        'object' => ResourceObjectEnum::SHIPMENT_LIST,
+                                                        'data'   => ShipmentResource::collection($this->{SourceExpandsEnum::SHIPMENTS})
+                                                    ]),
             SourceExpandsEnum::LEGS                  => $this->whenLoaded(SourceExpandsEnum::LEGS, fn() => [
-                'object' => ResourceObjectEnum::LEG_LIST,
-                'data'   => LegResource::collection($this->{SourceExpandsEnum::LEGS})
-            ]),
+                                                        'object' => ResourceObjectEnum::LEG_LIST,
+                                                        'data'   => LegResource::collection($this->{SourceExpandsEnum::LEGS})
+                                                    ]),
             SourceExpandsEnum::EVENTS                => $this->whenLoaded(SourceExpandsEnum::EVENTS, fn() => [
-                'object' => ResourceObjectEnum::EVENT_LIST,
-                'data'   => EventResource::collection($this->{SourceExpandsEnum::EVENTS})
-            ]),
+                                                        'object' => ResourceObjectEnum::EVENT_LIST,
+                                                        'data'   => EventResource::collection($this->{SourceExpandsEnum::EVENTS})
+                                                    ]),
             SourceExpandsEnum::SOURCE_EVENTS         => $this->whenLoaded(SourceExpandsEnum::SOURCE_EVENTS, fn() => [
-                'object' => ResourceObjectEnum::SOURCE_EVENT_LIST,
-                'data'   => SourceEventResource::collection($this->{SourceExpandsEnum::SOURCE_EVENTS})
-            ]),
+                                                        'object' => ResourceObjectEnum::SOURCE_EVENT_LIST,
+                                                        'data'   => SourceEventResource::collection($this->{SourceExpandsEnum::SOURCE_EVENTS})
+                                                    ]),
             SourceExpandsEnum::SHIPMENT_SOURCES      => $this->whenLoaded(SourceExpandsEnum::SHIPMENT_SOURCES, fn() => [
-                'object' => ResourceObjectEnum::SHIPMENT_SOURCE_LIST,
-                'data'   => ShipmentSourceResource::collection($this->{SourceExpandsEnum::SHIPMENT_SOURCES})
-            ]),
+                                                        'object' => ResourceObjectEnum::SHIPMENT_SOURCE_LIST,
+                                                        'data'   => ShipmentSourceResource::collection($this->{SourceExpandsEnum::SHIPMENT_SOURCES})
+                                                    ]),
             SourceExpandsEnum::WEBHOOK_DELIVERIES    => $this->whenLoaded(SourceExpandsEnum::WEBHOOK_DELIVERIES, fn() => [
-                'object' => ResourceObjectEnum::WEBHOOK_DELIVERY_LIST,
-                'data'   => WebhookDeliveryResource::collection($this->{SourceExpandsEnum::WEBHOOK_DELIVERIES})
-            ]),
+                                                        'object' => ResourceObjectEnum::WEBHOOK_DELIVERY_LIST,
+                                                        'data'   => WebhookDeliveryResource::collection($this->{SourceExpandsEnum::WEBHOOK_DELIVERIES})
+                                                    ]),
         ];
     }
 
@@ -67,6 +67,9 @@ class SourceResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        if (is_string($this->resource)) {
+            return [];
+        }
         $result = $this->prepare($request);
         if ($request->has('fields')) {
             $result = Arr::only($result, array_map('trim', explode(',', $request->get('fields'))));

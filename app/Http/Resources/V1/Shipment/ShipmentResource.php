@@ -37,23 +37,24 @@ class ShipmentResource extends JsonResource
             ShipmentFieldsEnum::UPDATED_AT           => optional($this->{ShipmentFieldsEnum::UPDATED_AT}),
             // Expansions
             ShipmentExpandsEnum::STATUS_SOURCE       => $this->whenLoaded(ShipmentExpandsEnum::STATUS_SOURCE,
-                                                        fn() => new SourceResource($this->{ShipmentExpandsEnum::STATUS_SOURCE})),
+                                                        fn() => new SourceResource($this->{ShipmentExpandsEnum::STATUS_SOURCE})
+                                                    ),
             ShipmentExpandsEnum::IDENTIFIERS         => $this->whenLoaded(ShipmentExpandsEnum::IDENTIFIERS, fn() => [
-                'object' => ResourceObjectEnum::IDENTIFIER_LIST,
-                'data'   => IdentifierResource::collection($this->{ShipmentExpandsEnum::IDENTIFIERS})
-            ]),
+                                                        'object' => ResourceObjectEnum::IDENTIFIER_LIST,
+                                                        'data'   => IdentifierResource::collection($this->{ShipmentExpandsEnum::IDENTIFIERS})
+                                                    ]),
             ShipmentExpandsEnum::SOURCES             => $this->whenLoaded(ShipmentExpandsEnum::SOURCES, fn() => [
-                'object' => ResourceObjectEnum::SOURCE_LIST,
-                'data'   => SourceResource::collection($this->{ShipmentExpandsEnum::SOURCES})
-            ]),
+                                                        'object' => ResourceObjectEnum::SOURCE_LIST,
+                                                        'data'   => SourceResource::collection($this->{ShipmentExpandsEnum::SOURCES})
+                                                    ]),
             ShipmentExpandsEnum::EVENTS              => $this->whenLoaded(ShipmentExpandsEnum::EVENTS, fn() => [
-                'object' => ResourceObjectEnum::EVENT_LIST,
-                'data'   => EventResource::collection($this->{ShipmentExpandsEnum::EVENTS})
-            ]),
+                                                        'object' => ResourceObjectEnum::EVENT_LIST,
+                                                        'data'   => EventResource::collection($this->{ShipmentExpandsEnum::EVENTS})
+                                                    ]),
             ShipmentExpandsEnum::LEGS                => $this->whenLoaded(ShipmentExpandsEnum::LEGS, fn() => [
-                'object' => ResourceObjectEnum::LEG_LIST,
-                'data'   => LegResource::collection($this->{ShipmentExpandsEnum::LEGS})
-            ]),
+                                                        'object' => ResourceObjectEnum::LEG_LIST,
+                                                        'data'   => LegResource::collection($this->{ShipmentExpandsEnum::LEGS})
+                                                    ]),
         ];
     }
 
